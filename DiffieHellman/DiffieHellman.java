@@ -3,11 +3,11 @@ import java.security.SecureRandom;
 
 public class DiffieHellman {
     private BigInteger N;  // Modulo
-    private BigInteger G;  // Gerador
-    private BigInteger S;  // Numero privado
-    private BigInteger publicValue;  // Valor publico gerado
-    private BigInteger sharedKey;    // Chave privada calculada
-
+    private BigInteger G;  // Gerador, numero que sera elevado para gerar chaves 
+    private BigInteger S;  // Numero privado do usuario 
+    private BigInteger publicValue;  // Valor publico gerado, a partir do numero privado 
+    private BigInteger sharedKey;    // chave compartilhada calculada com base no valor publico do outro usuario
+    
     // Construtor que define o modulo (N) e o gerador (G)
     public DiffieHellman(BigInteger N, BigInteger G) {
         this.N = N;
@@ -28,7 +28,7 @@ public class DiffieHellman {
     }
 
     // Calcula a chave privada (K) com base no valor publico do outro lado
-    public void calculateSharedKey(BigInteger otherPublicValue) {
+    public void calculateSharedKey(BigInteger otherPublicValue) { // formula K=(otherPublicValueS)mod  NK=(otherPublicValueS)modN
         this.sharedKey = otherPublicValue.modPow(S, N);  // K = (outroValorPublico ^ S) % N
     }
 
